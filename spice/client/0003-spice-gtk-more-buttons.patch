@@ -1,0 +1,53 @@
+Description: <short summary of the patch>
+ TODO: Put a short summary on the line above and replace this paragraph
+ with a longer explanation of this change. Complete the meta-information
+ with other relevant fields (see below for details). To make it easier, the
+ information below has been extracted from the changelog. Adjust it or drop
+ it.
+ .
+ spice-gtk (0.35-2) unstable; urgency=medium
+ .
+   * Team upload.
+   * d/p/0002-quic-Prevent-side-effects-calling-C-macros.patch: Fix the usage
+     of byte swap macro, that should fix the FTBFS on bigendian architectures
+Author: Laurent Bigonville <bigon@debian.org>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: https://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: 2019-11-19
+
+--- spice-gtk-0.35.orig/src/spice-widget.c
++++ spice-gtk-0.35/src/spice-widget.c
+@@ -1900,6 +1900,10 @@ static int button_gdk_to_spice(guint gdk
+         [ 3 ] = SPICE_MOUSE_BUTTON_RIGHT,
+         [ 4 ] = SPICE_MOUSE_BUTTON_UP,
+         [ 5 ] = SPICE_MOUSE_BUTTON_DOWN,
++        [ 6 ] = 6,
++        [ 7 ] = 7,
++        [ 8 ] = 8,
++        [ 9 ] = 9,
+     };
+ 
+     if (gdk < SPICE_N_ELEMENTS(map)) {
+@@ -2036,6 +2040,12 @@ static gboolean scroll_event(GtkWidget *
+     case GDK_SCROLL_DOWN:
+         press_and_release(display, SPICE_MOUSE_BUTTON_DOWN, button_state);
+         break;
++    case GDK_SCROLL_LEFT:
++        press_and_release(display, 6, button_state);
++        break;
++    case GDK_SCROLL_RIGHT:
++        press_and_release(display, 7, button_state);
++        break;
+     case GDK_SCROLL_SMOOTH:
+         d->scroll_delta_y += scroll->delta_y;
+         while (ABS(d->scroll_delta_y) > 1) {

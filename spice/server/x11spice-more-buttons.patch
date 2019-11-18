@@ -1,0 +1,13 @@
+diff --git a/src/session.c b/src/session.c
+index bdd550d..b40aea5 100644
+--- a/src/session.c
++++ b/src/session.c
+@@ -149,7 +149,7 @@ void session_handle_mouse_position(session_t *session, int x, int y,
+     xcb_flush(session->display.c);
+ }
+ 
+-#define BUTTONS 5
++#define BUTTONS 9
+ static void session_handle_button_change(session_t *s, uint32_t buttons_state)
+ {
+     int i;
